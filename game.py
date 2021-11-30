@@ -16,11 +16,11 @@ class Game:
     
     def get_player1_space(self) -> Optional[int]:
         """Returns either None (for Start) or the space number player 1 is currently on"""
-        return None
+        return 8
     
     def get_player2_space(self) -> Optional[int]:
         """Returns either None (for Start) or the space number player 2 is currently on"""
-        return None
+        return 2
     
     def last_dice_roll(self) -> Optional[Tuple[int, int]]:
         """Returns either None or a pair of die rolls, like (2, 6)"""

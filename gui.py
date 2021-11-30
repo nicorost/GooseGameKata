@@ -61,6 +61,7 @@ class Gui:
 
 
 def draw_piece(space: int, color: int = 9, xs: int = 15, ys: int = 40, width: int = 6):
+    space = 63 - space  # reverse direction players move through the game.
     if space <= 0:
         raise ValueError("space_num must be between 0 and 63")
     elif space <= 16:
@@ -95,6 +96,17 @@ def draw_board(xs: int = 15, ys: int = 40, width=6):
             pyxel.rect(x, y, width, width, color)
     pyxel.rect(xs + width, ys + (2 * width), width, width, color)  # duplicate color for unused square 64
     
+    # start and end symbols
+    pyxel.text(xs + width, ys + (2 * width), ">>>", 15)
+    
+    # Goose spaces
+    pyxel.rect(xs + (6 * width), ys + (2 * width), width, width, 11)  # 4
+    pyxel.rect(xs + (10 * width), ys + (2 * width), width, width, 11) # 8
+    pyxel.rect(xs + (14 * width), ys + (1 * width), width, width, 11) # 13
+    pyxel.rect(xs + (9 * width), ys + (1 * width), width, width, 11) # 18
+    pyxel.rect(xs + (4 * width), ys + (1 * width), width, width, 11) # 23
+    pyxel.rect(xs + (0 * width), ys + (1 * width), width, width, 11) # 27
+    
     #  Make line that shows track
     line_color = lc = 0
     pyxel.line(xs - 1, ys - 1, xs + (16 * width), ys - 1, lc)
@@ -107,6 +119,10 @@ def draw_board(xs: int = 15, ys: int = 40, width=6):
     pyxel.line(xs + (1 * width),  ys + (2 * width) - 0, xs + (1 * width), ys + (3 * width) - 1 , lc)
     pyxel.line(xs + (1 * width),  ys + (2 * width) - 0, xs + (14 * width) - 1,  ys + (2 * width) - 0 , lc)
     
+    # bridge
+    pyxel.rect(xs + (11 * width), ys + (1 * width) + 1, width, 2 * width - 2, 6)  
+    pyxel.text(xs + (11 * width) + 1, ys + (2 * width) + 1, '^', 7)  
+    pyxel.text(xs + (11 * width) + 1, ys + (2 * width) - 2, '^', 7)  
     
 def draw_player_names(names: List[str], xs: int = 5, ys: int = 15):
     pyxel.text(xs, ys, f'Players: {"  ".join(names)}', 2)
