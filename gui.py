@@ -3,46 +3,62 @@ from typing import List
 
 import pyxel
 
+from game import Game
+
 
 class Gui:
     
-    def __init__(self, player1_name: str, player2_name: str, title="Game of the Goose") -> None:
+    def __init__(self, game: Game, title="Game of the Goose") -> None:
+        self.game = game
         self.title = title
-        self.player1_name = player1_name
-        self.player2_name = player2_name
-        self.player1_space = None  # set to a number after rolling
-        self.player2_space = None  # set to a number after rolling
         self.message = "Press Space to Roll Dice"
-        
         self._start_gui()
         
     def _start_gui(self):
+        """Creates a graphics window."""
         pyxel.init(120, 80, caption=self.title)
         
     def update(self):
+        """Runs every frame.  It's meant to take and direct user input."""
         if pyxel.btnp(pyxel.KEY_SPACE):
-            print('space bar pressed')
-            # 1. Roll Dice
-            # 2. Move Current Player to correct space
+            if not self.game.is_over():
+                print(f'Rolling Dice for player {self.game.get_current_player()}')
+                self.game.roll_dice()
+            else:
+                print('Game is over. Exit game to Restart.')
         elif pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
         
     def draw(self):
+        """Draws the graphics."""
         pyxel.cls(0)  # clear screen
         pyxel.text(5, 5, 'Game of the Goose', 2)
-        draw_player_names(names=[self.player1_name, self.player2_name])
+        draw_player_names(names=[
+            self.game.get_player1_name(), 
+            self.game.get_player2_name(),
+        ])
         draw_board()
-        if self.player1_space is not None:
-            draw_piece(space=self.player1_space, color=9)
-        if self.player2_space is not None:
-            draw_piece(space=self.player2_space, color=10)
+        space = self.game.get_player1_space()
+        if space is not None:
+            draw_piece(space=space, color=9)
+            
+        space = self.game.get_player2_space()
+        if space is not None:
+            draw_piece(space=space, color=10)
         
-        draw_dice(1, 5)
+        dice_rolls = self.game.last_dice_roll()
+        if dice_rolls is not None:
+            roll1, roll2 = dice_rolls
+            draw_dice(roll1, roll2)
         
-        draw_message(self.message, 5, 70)
+        if not self.game.is_over():
+            draw_message(self.message, 5, 70)
+        else:
+            draw_message(f"{self.game.get_winner()} won!")
         
     def run(self):
         pyxel.run(self.update, self.draw)
+
 
 def draw_piece(space: int, color: int = 9, xs: int = 15, ys: int = 40, width: int = 6):
     if space <= 0:

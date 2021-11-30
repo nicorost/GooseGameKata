@@ -1,84 +1,21 @@
 # The Goose Game Kata
 Goose game is a game where two or more players move pieces around a track by rolling a die. The aim of the game is to reach square number sixty-three before any of the other players and avoid obstacles. ([wikipedia](https://en.wikipedia.org/wiki/Game_of_the_Goose))
 
-This kata has been invented by [Matteo Vaccari](https://github.com/xpmatteo), you can find the original slides [here](https://www.slideshare.net/pierodibello/il-dilettevole-giuoco-delloca-coding-dojo).
+This kata has been invented by [Matteo Vaccari](https://github.com/xpmatteo) and adapted from the [Awesome Katas Repo](https://github.com/xpeppers/goose-game-kata/), you can find the original slides [here](https://www.slideshare.net/pierodibello/il-dilettevole-giuoco-delloca-coding-dojo).
 
 ![Goose Game Board](https://www.allbusinesstemplates.com/thumbs/bc3357aa-9188-4a9a-96d7-2366127f9f87.png)
 
 
-## General requirements
-- You may use whatever programming language you prefer. Use something that you know well.
-- You should commit your code on GitHub or any other SCM repository you prefer (e.g. bitbucket, gitlab, etc) and send us the link.
-- You should release your work under an OSI-approved open-source license of your choice.
-- You should deliver the sources of your application, with a README that explains how to compile and run it.
+**Exercise:** Implement the game below, focusing on writing the best code you can produce.  Use the `Game` class as a template, filling in the methods with appropriate logic based on the game rules below.  The `Gui` relies on the listed `Game` methods to render the game, and will start to work as the `Game` is made to work properly, when the `main.py` script is run.
 
-**IMPORTANT:** Implement the requirements focusing on writing the best code you can produce.
 
-## Features
+## Game Rules for a 2-Player Game
 
-### 1. Add players
-As a player, I want to add me to the game so that I can play.
-
-**Scenarios:**
-1. Add Player
-   ```cucumber
-   If there is no participant
-   the user writes: "add player Pippo"
-   the system responds: "players: Pippo"
-   the user writes: "add player Pluto"
-   the system responds: "players: Pippo, Pluto"
-   ```
-
-2. Duplicated Player
-   ```cucumber
-   If there is already a participant "Pippo"
-   the user writes: "add player Pippo"
-   the system responds: "Pippo: already existing player"
-   ```
-
-### 2. Move a player
-As a player, I want to move the marker on the board to make the game progress
-
-**Scenarios:**
-1. Start
-   ```cucumber
-   If there are two participants "Pippo" and "Pluto" on space "Start"
-   the user writes: "move Pippo 4, 2"
-   the system responds: "Pippo rolls 4, 2. Pippo moves from Start to 6"
-   the user writes: "move Pluto 2, 2"
-   the system responds: "Pluto rolls 2, 2. Pluto moves from Start to 4"
-   the user writes: "move Pippo 2, 3"
-   the system responds: "Pippo rolls 2, 3. Pippo moves from 6 to 11"
-   ```
-
-### 3. Win
-As a player, I win the game if I land on space "63"
-
-**Scenarios:**
-1. Victory
-   ```cucumber
-   If there is one participant "Pippo" on space "60"
-   the user writes: "move Pippo 1, 2"
-   the system responds: "Pippo rolls 1, 2. Pippo moves from 60 to 63. Pippo Wins!!"
-   ```
-
-2. Winning with the exact dice shooting
-   ```cucumber
-   If there is one participant "Pippo" on space "60"
-   the user writes: "move Pippo 3, 2"
-   the system responds: "Pippo rolls 3, 2. Pippo moves from 60 to 63. Pippo bounces! Pippo returns to 61"
-   ```
-### 4. The game throws the dice
-As a player, I want the game throws the dice for me to save effort
-
-**Scenarios:**
-1. Dice roll
-   ```cucumber
-   If there is one participant "Pippo" on space "4"
-   assuming that the dice get 1 and 2
-   when the user writes: "move Pippo"
-   the system responds: "Pippo rolls 1, 2. Pippo moves from 4 to 7"
-   ```
+  - Two players give their names and start the game.  
+  - On a player's turn, they roll two 6-sided dice.  The player moves their piece the total number of spaces as the total of their dice roll.  (e.g. rolling a 3 and 4 means moving 7 spaces.)
+  - A player wins if they land **exactly** on space 63.
+  - If a player rolls past space 63 (e.g. 64), they **"bounce"**, and go back to where they began their turn.
+  
 
 ### 5. Space "6" is "The Bridge"
 As a player, when I get to the space "The Bridge", I jump to the space "12"
