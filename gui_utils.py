@@ -1,7 +1,32 @@
 from itertools import cycle
-from typing import List
+from typing import List, Optional, Tuple
 
 import pyxel
+
+def draw_scene(
+    player1: str, player2: str, 
+    player1_space: Optional[int], player2_space: Optional[int],
+    last_dice_roll: Optional[Tuple[int, int]],
+    message: str,
+    ):
+    """Draws the board scene"""
+    pyxel.cls(0)  # clear screen
+    pyxel.text(5, 5, 'Game of the Goose', 2)
+    draw_player_names(names=[player1, player2])
+    draw_board()
+
+    # Player Pieces
+    if player1_space is not None:
+        draw_piece(space=player1_space, color=9)
+    if player2_space is not None:
+        draw_piece(space=player2_space, color=10)
+    
+    if last_dice_roll is not None:
+        roll1, roll2 = last_dice_roll
+        draw_dice(roll1, roll2)
+    
+    draw_message(message, 5, 70)
+    
 
 
 def draw_piece(space: int, color: int = 9, xs: int = 15, ys: int = 40, width: int = 6):

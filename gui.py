@@ -1,6 +1,6 @@
 import pyxel
 
-from gui_utils import draw_dice, draw_piece, draw_board, draw_message, draw_player_names
+from gui_utils import draw_scene
 from game import Game
 
 
@@ -29,30 +29,15 @@ class Gui:
         
     def draw(self):
         """Draws the graphics."""
-        pyxel.cls(0)  # clear screen
-        pyxel.text(5, 5, 'Game of the Goose', 2)
-        draw_player_names(names=[
-            self.game.get_player1_name(), 
-            self.game.get_player2_name(),
-        ])
-        draw_board()
-        space = self.game.get_player1_space()
-        if space is not None:
-            draw_piece(space=space, color=9)
-            
-        space = self.game.get_player2_space()
-        if space is not None:
-            draw_piece(space=space, color=10)
-        
-        dice_rolls = self.game.last_dice_roll()
-        if dice_rolls is not None:
-            roll1, roll2 = dice_rolls
-            draw_dice(roll1, roll2)
-        
-        if not self.game.is_over():
-            draw_message(self.message, 5, 70)
-        else:
-            draw_message(f"{self.game.get_winner()} won!")
+        draw_scene(
+            player1=self.game.get_player1_name(),
+            player2=self.game.get_player2_name(),
+            player1_space=self.game.get_player1_space(),
+            player2_space=self.game.get_player2_space(),
+            last_dice_roll=self.game.last_dice_roll(),
+            message=self.message if not self.game.is_over() else f"{self.game.get_winner()} won!",
+        )
+       
         
     def run(self):
         pyxel.run(self.update, self.draw)
