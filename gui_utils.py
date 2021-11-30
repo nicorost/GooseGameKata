@@ -30,7 +30,7 @@ def draw_scene(
 
 
 def draw_piece(space: int, color: int = 9, xs: int = 15, ys: int = 40, width: int = 6):
-    space = 63 - space  # reverse direction players move through the game.
+    space = 64 - space  # reverse direction players move through the game.
     if space <= 0:
         raise ValueError("space_num must be between 0 and 63")
     elif space <= 16:
