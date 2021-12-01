@@ -3,7 +3,7 @@ Goose game is a game where two or more players move pieces around a track by rol
 
 This kata has been invented by [Matteo Vaccari](https://github.com/xpmatteo) and adapted from the [Awesome Katas Repo](https://github.com/xpeppers/goose-game-kata/), you can find the original slides [here](https://www.slideshare.net/pierodibello/il-dilettevole-giuoco-delloca-coding-dojo).
 
-![Goose Game Board](https://www.allbusinesstemplates.com/thumbs/bc3357aa-9188-4a9a-96d7-2366127f9f87.png)
+![Goose Game Board](https://images.tom.shop/producten/original/jumbo_ganzenbord_2_166098.jpg)
 
 
 **Exercise:** Implement the game below, focusing on writing the best code you can produce.  Use the `Game` class as a template, filling in the methods with appropriate logic based on the game rules below.  The `Gui` relies on the listed `Game` methods to render the game, and will start to work as the `Game` is made to work properly, when the `main.py` script is run.  
