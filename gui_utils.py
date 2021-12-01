@@ -31,8 +31,8 @@ def draw_scene(
 
 def draw_piece(space: int, color: int = 9, xs: int = 15, ys: int = 40, width: int = 6):
     space = 64 - space  # reverse direction players move through the game.
-    if space <= 0:
-        raise ValueError("space_num must be between 0 and 63")
+    if space <= 0 or space > 63:
+        return  # Don't draw any player piece
     elif space <= 16:
         pyxel.circ(xs + ((space - 1) * width) + 3, ys + 3, width // 2 - 2, color)
     elif space <= 19:
@@ -50,8 +50,6 @@ def draw_piece(space: int, color: int = 9, xs: int = 15, ys: int = 40, width: in
     elif space <= 63:
         x = xs + (16 - (space - 49)) * width + 3
         pyxel.circ(x, ys + (2 * width) + 3, width // 2 - 2, color)
-    else:
-        raise ValueError("space_num must be between 0 and 63")
         
 
 def draw_board(xs: int = 15, ys: int = 40, width=6):

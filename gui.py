@@ -20,7 +20,7 @@ class Gui:
         """Runs every frame.  It's meant to take and direct user input."""
         if pyxel.btnp(pyxel.KEY_SPACE):
             if not self.game.is_over():
-                print(f'Rolling Dice for player {self.game.get_current_player()}')
+                print(f'Rolling Dice for player: {self.game.get_current_player()}')
                 self.game.roll_dice()
             else:
                 print('Game is over. Exit game to Restart.')
@@ -34,7 +34,7 @@ class Gui:
             player2=self.game.get_player2_name(),
             player1_space=self.game.get_player1_space(),
             player2_space=self.game.get_player2_space(),
-            last_dice_roll=self.game.last_dice_roll(),
+            last_dice_roll=self.game.get_last_dice_roll(),
             message=self.message if not self.game.is_over() else f"{self.game.get_winner()} won!",
         )
        
